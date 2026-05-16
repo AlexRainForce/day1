@@ -1,0 +1,26 @@
+name: Python Script Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Скачиваем код репозитория на сервер GitHub
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Устанавливаем Python нужной версии
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    # 3. Запускаем наш скрипт и передаем ему тестовый факт
+    - name: Run script
+      run: python script.py "Привет, это проверка из пайплайна!"
